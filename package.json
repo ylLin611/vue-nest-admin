@@ -21,7 +21,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/qs": "^6.9.11",
+    "@vueuse/core": "^10.8.0",
     "pinia": "^2.1.7",
+    "qs": "^6.11.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
@@ -48,6 +51,7 @@
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.0.3",
     "typescript": "~5.3.0",
+    "unplugin-auto-import": "^0.17.5",
     "vite": "^5.0.11",
     "vitest": "^1.2.2",
     "vue-tsc": "^1.8.27"
