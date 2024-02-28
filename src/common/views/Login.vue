@@ -1,52 +1,41 @@
 <template>
-  <div class="w-100vw h-100vh overflow-hidden relative">
+  <div class="w-screen h-screen overflow-hidden relative">
     <div>
       <img src="@/assets/img/bg.jpg" alt="" class="w-screen" />
     </div>
-    <div
-      class="absolute top-50% -translate-y-50% right-200px bg-#fff rounded-20px card-shadow px-40px py-70px bg-opacity-20"
-    >
-      <div class="text-24px font-600 text-#fff text-center">管理平台</div>
-      <div class="mt-40px w-400px">
-        <!-- <div class="mb-20px text-red">用户名或密码错误</div> -->
-        <div>
-          <a-input v-model:value="userName" placeholder="工号/手机号" class="h-40px">
-            <template #prefix>
-              <user-outlined />
-            </template>
-          </a-input>
-        </div>
-        <div class="mt-30px">
-          <a-input-password v-model:value="password" placeholder="请输入密码" class="h-40px">
-            <template #prefix>
-              <lock-outlined />
-            </template>
-          </a-input-password>
-        </div>
-        <div class="mt-40px">
-          <a-button type="primary" shape="round" size="large" @click="loginRegister" class="w-100%"> 登录 </a-button>
-        </div>
-      </div>
+    <div class="absolute top-[20%] left-[50%] -translate-x-[50%]">
+      <Card class="w-[400px] bg-opacity-50!">
+        <CardHeader class="text-center">
+          <CardTitle>Welcome</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="grid items-center w-full gap-4">
+            <div class="flex w-full max-w-sm items-center gap-1.5">
+              <Input id="name" v-model:model-value="email" placeholder="邮箱前缀" class="w-[200px]" />
+              <div>@reachauto.com</div>
+            </div>
+            <div class="flex w-full max-w-sm items-center gap-1.5">
+              <Input id="name" placeholder="请输入验证码" class="w-[200px]" />
+              <Button @click="getCaptcha"> 获取验证码 </Button>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter class="flex justify-center px-6 pb-6">
+          <Button class="w-full">登录</Button>
+        </CardFooter>
+      </Card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const userName = ref()
-const password = ref()
-const className = ref('hint-show')
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/common/components/ui/card'
+import { Input } from '@/common/components/ui/input'
+import { Button } from '@/common/components/ui/button'
 
-watch(userName, () => {
-  className.value = 'hint-show'
-})
+const email = ref()
 
-const router = useRouter()
-const loginRegister = () => {
-  if (userName.value === 'admin' && password.value === '123456') {
-    localStorage.setItem('user', 'admin')
-    router.replace('/')
-  } else {
-    className.value = 'hint-conceal'
-  }
+const getCaptcha = () => {
+  console.log(email.value)
 }
 </script>
