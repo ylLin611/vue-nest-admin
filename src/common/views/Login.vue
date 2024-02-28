@@ -1,7 +1,7 @@
 <template>
   <div class="w-100vw h-100vh overflow-hidden relative">
     <div>
-      <img src="@/assets/img/bg.jpg" alt="" class="h-100vh" style="transform: scale(-1, 1)" />
+      <img src="@/assets/img/bg.jpg" alt="" class="w-screen" />
     </div>
     <div
       class="absolute top-50% -translate-y-50% right-200px bg-#fff rounded-20px card-shadow px-40px py-70px bg-opacity-20"

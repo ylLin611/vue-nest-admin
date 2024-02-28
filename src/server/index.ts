@@ -1,49 +1,42 @@
-import {useFetch} from '@vueuse/core'
-import qs from "qs";
-const baseUrl = '/'
+import { useFetch } from '@vueuse/core';
+import qs from 'qs';
+
+const baseUrl = '/';
+
 export const useRequest = () => {
-  const paramFixed = {}
-  /**
-   * 去请求方式
-   */
+  const paramFixed = {};
+
+  const Request = <T>(url: string, method: string) => {
+    return useFetch<T>(baseUrl + url, {
+      async beforeFetch({ options }) {
+        options.headers = {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        };
+        options.method = method;
+        return { options };
+      },
+      afterFetch(res) {
+        if (!res.data.result) {
+          return Promise.reject(res.data);
+        }
+        return res;
+      },
+    });
+  };
+
   return {
-    post<T>(url: string, data?: any) {
-      const json = Request<T>(url).post(qs.stringify({ ...paramFixed, ...data })).json<T>();
-      return json
-    }
-  }
-}
-function Request<T>(url: string) {
-  return useFetch<T>(baseUrl + url, {
-    /**
-     * 请求之前
-     * @param param0 
-     * @returns 
-     */
-    async beforeFetch({ options }) {
-      /**
-       * 设置header头
-       */
-      options.headers = {
-        /**
-         * 表单方式提交
-         */
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-      }
-      return { options }
+    get<T>(url: string, params?: any) {
+      const queryString = qs.stringify({ ...paramFixed, ...params });
+      return Request<T>(url + (queryString ? `?${queryString}` : ''), 'GE`T`');
     },
-    /**
-     * 请求之后
-     * @param res 
-     * @returns 
-     */
-    afterFetch(res) {
-      // TODO error
-      if (!res.data.result) {
-        // ElMessage.error(res.data.msg??res.data.message)
-        return Promise.reject(res.data)
-      }
-      return res
-    }
-  })
-}
+    post<T>(url: string, data?: any) {
+      return Request<T>(url, 'POST').post(qs.stringify({ ...paramFixed, ...data })).json<T>();
+    },
+    patch<T>(url: string, data?: any) {
+      return Request<T>(url, 'PATCH').post(qs.stringify({ ...paramFixed, ...data })).json<T>();
+    },
+    delete<T>(url: string, data?: any) {
+      return Request<T>(url, 'DELETE').post(qs.stringify({ ...paramFixed, ...data })).json<T>();
+    },
+  };
+};

@@ -19,7 +19,7 @@ export default defineConfig({
         filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
         globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       }
-    }),
+    })
   ],
   resolve: {
     alias: {
