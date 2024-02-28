@@ -6,8 +6,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 import AutoImport from 'unplugin-auto-import/vite'
 
+import tailwind from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [tailwind(), autoprefixer()]
+    }
+  },
   plugins: [
     vue(),
     vueJsx(),
